@@ -1,9 +1,8 @@
 /**
- * BUSINESS CONFIGURATION
+ * BUSINESS CONFIGURATION — Catpro Nail Salon
  *
  * This file is the single source of truth for all business-specific settings.
  * To adapt this template for a different studio, update the values below.
- * No changes to components or logic should be required for basic rebranding.
  */
 
 import type { BusinessConfig, WeeklyHours, BlockedDate } from "@/lib/types";
@@ -11,26 +10,28 @@ import type { BusinessConfig, WeeklyHours, BlockedDate } from "@/lib/types";
 // ─── Business Profile ─────────────────────────────────────────────────────────
 
 export const BUSINESS_CONFIG: BusinessConfig = {
-  name: "Studio Noir",
-  tagline: "Luxury nail & beauty studio",
+  name: "Catpro",
+  tagline: "Premium nail artistry in the heart of London",
   description:
-    "An elevated studio experience where artistry meets self-care. We specialize in nail art, lash extensions, and brow design — crafted for those who appreciate the finest details.",
-  address: "12 Bloom Street, Soho, London W1D 3AP",
-  phone: "+44 20 7946 0321",
-  email: "hello@studionoir.co",
-  website: "https://studionoir.co",
-  rating: 4.9,
-  reviewCount: 248,
-  heroImage: "https://images.unsplash.com/photo-1604654894610-df63bc536371?w=1600&q=80",
+    "At Catpro, we transform every manicure into a statement of elegance and individuality. Using premium Japanese gels, BIAB, and high-fidelity techniques, our expert technicians craft flawless nails that are both durable and beautiful. From timeless French classics to bold, creative designs, each set is meticulously designed to reflect your personal style. Step into Catpro and experience nail artistry like never before – where precision meets creativity, and every detail matters.",
+  address: "65 Whitechapel Road, Room 222, WorkspaceEast London Works, London, E1 1DU",
+  phone: "+44 20 7946 0865",
+  email: "hello@catpronails.co",
+  website: "https://catpronails.co",
+  rating: 5.0,
+  reviewCount: 54,
+  heroImage: "/gallery-5.avif",
   galleryImages: [
-    "https://images.unsplash.com/photo-1604654894610-df63bc536371?w=800&q=80",
-    "https://images.unsplash.com/photo-1604655852853-1d2a9b3e2e73?w=800&q=80",
-    "https://images.unsplash.com/photo-1598452963314-b09f397a5c48?w=800&q=80",
-    "https://images.unsplash.com/photo-1560177112-fbfd5fde9566?w=800&q=80",
-    "https://images.unsplash.com/photo-1614159689047-63ed37a3c78d?w=800&q=80",
-    "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&q=80",
+    "/gallery-1.avif",
+    "/gallery-2.avif",
+    "/gallery-3.avif",
+    "/gallery-4.avif",
+    "/gallery-5.avif",
+    "/gallery-6.avif",
+    "/gallery-7.avif",
+    "/gallery-8.avif",
   ],
-  amenities: ["Free WiFi", "Card Payment", "Private Studio", "Premium Products", "Parking Nearby"],
+  amenities: [],
 };
 
 // ─── Booking Settings ─────────────────────────────────────────────────────────
@@ -39,7 +40,7 @@ export const BOOKING_CONFIG = {
   /** Minutes added after each service to prevent back-to-back bookings */
   bufferMinutes: 10,
   /** Interval between bookable time slots (minutes) */
-  slotIntervalMinutes: 30,
+  slotIntervalMinutes: 15,
   /** How many days in advance customers can book */
   maxAdvanceBookingDays: 60,
   /** Currency symbol for display */
@@ -49,19 +50,19 @@ export const BOOKING_CONFIG = {
 // ─── Opening Hours ────────────────────────────────────────────────────────────
 
 export const WEEKLY_HOURS: WeeklyHours = {
-  monday:    { isOpen: true,  open: "10:00", close: "19:00" },
-  tuesday:   { isOpen: true,  open: "10:00", close: "19:00" },
-  wednesday: { isOpen: true,  open: "10:00", close: "19:00" },
-  thursday:  { isOpen: true,  open: "10:00", close: "20:00" },
-  friday:    { isOpen: true,  open: "10:00", close: "20:00" },
-  saturday:  { isOpen: true,  open: "09:00", close: "18:00" },
-  sunday:    { isOpen: false, open: "10:00", close: "16:00" },
+  monday:    { isOpen: true,  open: "11:00", close: "19:30" },
+  tuesday:   { isOpen: true,  open: "11:00", close: "19:30" },
+  wednesday: { isOpen: true,  open: "11:00", close: "19:30" },
+  thursday:  { isOpen: true,  open: "11:00", close: "19:30" },
+  friday:    { isOpen: true,  open: "11:00", close: "19:30" },
+  saturday:  { isOpen: true,  open: "11:00", close: "19:30" },
+  sunday:    { isOpen: true,  open: "12:00", close: "17:00" },
 };
 
 // ─── Blocked / Closed Dates ───────────────────────────────────────────────────
 
 export const BLOCKED_DATES: BlockedDate[] = [
-  { date: "2025-12-25", reason: "Christmas Day" },
-  { date: "2025-12-26", reason: "Boxing Day" },
-  { date: "2026-01-01", reason: "New Year's Day" },
+  { date: "2026-12-25", reason: "Christmas Day" },
+  { date: "2026-12-26", reason: "Boxing Day" },
+  { date: "2027-01-01", reason: "New Year's Day" },
 ];

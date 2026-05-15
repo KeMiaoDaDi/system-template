@@ -1,40 +1,71 @@
 import { BUSINESS_CONFIG } from "@/lib/config/business.config";
 
-export function BusinessInfo() {
-  const { description, address, phone, email, amenities } = BUSINESS_CONFIG;
+export function AboutSection() {
+  const { description, name } = BUSINESS_CONFIG;
 
   return (
-    <section className="py-16 px-4 md:px-8 max-w-7xl mx-auto">
-      <div className="grid md:grid-cols-2 gap-12">
-        {/* About */}
-        <div>
-          <h2 className="text-2xl font-bold text-stone-900 mb-4">About the Studio</h2>
-          <p className="text-stone-600 leading-relaxed mb-6">{description}</p>
+    <section
+      className="relative py-24 px-4 md:px-8 overflow-hidden"
+      style={{
+        background: "radial-gradient(ellipse 80% 60% at 50% 50%, #F5EDE4 0%, #FAF8F5 70%)",
+      }}
+    >
+      {/* Decorative large background lettering */}
+      <span
+        aria-hidden
+        className="pointer-events-none select-none absolute inset-0 flex items-center justify-center text-[18vw] font-black text-stone-900/[0.03] leading-none tracking-tighter uppercase"
+      >
+        {name}
+      </span>
 
-          {/* Amenities */}
-          <div className="flex flex-wrap gap-2">
-            {amenities.map((a) => (
-              <span
-                key={a}
-                className="inline-flex items-center gap-1.5 bg-stone-100 text-stone-700 text-sm px-3 py-1.5 rounded-full font-medium"
-              >
-                <span className="h-1.5 w-1.5 rounded-full bg-stone-400" />
-                {a}
-              </span>
-            ))}
-          </div>
+      {/* Thin ornamental rule */}
+      <div className="relative flex items-center justify-center gap-4 mb-8">
+        <div className="h-px w-16 bg-stone-300" />
+        <svg className="h-4 w-4 text-stone-300 shrink-0" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2l2.09 6.26L20 10l-5.91 1.74L12 18l-2.09-6.26L4 10l5.91-1.74z" />
+        </svg>
+        <div className="h-px w-16 bg-stone-300" />
+      </div>
+
+      {/* Content */}
+      <div className="relative max-w-2xl mx-auto text-center">
+        {/* Oversized decorative quote mark */}
+        <div
+          aria-hidden
+          className="text-8xl leading-none text-stone-200 font-serif mb-2 select-none"
+          style={{ fontFamily: "Georgia, serif" }}
+        >
+          "
         </div>
+        <h2 className="text-2xl font-bold text-stone-900 mb-5">About the Studio</h2>
+        <p className="text-stone-600 leading-relaxed text-base">{description}</p>
+      </div>
 
-        {/* Contact & Location */}
-        <div className="space-y-4">
-          <h2 className="text-2xl font-bold text-stone-900 mb-4">Find Us</h2>
-
-          <InfoRow icon={<MapPinIcon />} label="Address" value={address} />
-          <InfoRow icon={<PhoneIcon />} label="Phone" value={phone} href={`tel:${phone}`} />
-          <InfoRow icon={<MailIcon />} label="Email" value={email} href={`mailto:${email}`} />
-        </div>
+      {/* Thin ornamental rule (bottom) */}
+      <div className="relative flex items-center justify-center gap-4 mt-8">
+        <div className="h-px w-16 bg-stone-300" />
+        <div className="h-1 w-1 rounded-full bg-stone-300" />
+        <div className="h-px w-16 bg-stone-300" />
       </div>
     </section>
+  );
+}
+
+export function ContactSection() {
+  const { address, phone, email } = BUSINESS_CONFIG;
+
+  return (
+    <div>
+      {/* Section label */}
+      <p className="text-xs font-semibold uppercase tracking-widest text-stone-400 mb-3">Location</p>
+      <h2 className="text-2xl font-bold text-stone-900 mb-6">Find Us</h2>
+
+      <div className="space-y-3">
+        <InfoRow icon={<MapPinIcon />} label="Address" value={address} />
+        <InfoRow icon={<PhoneIcon />} label="Phone" value={phone} href={`tel:${phone}`} />
+        <InfoRow icon={<MailIcon />} label="Email" value={email} href={`mailto:${email}`} />
+      </div>
+    </div>
   );
 }
 
@@ -50,8 +81,10 @@ function InfoRow({
   href?: string;
 }) {
   const content = (
-    <div className="flex items-start gap-3">
-      <div className="mt-0.5 h-9 w-9 rounded-xl bg-stone-100 flex items-center justify-center text-stone-600 shrink-0">
+    <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-white border border-stone-100 hover:border-stone-200 hover:shadow-sm transition-all">
+      <div className="mt-0.5 h-9 w-9 rounded-xl flex items-center justify-center text-stone-600 shrink-0"
+        style={{ background: "linear-gradient(135deg, #F5EDE4 0%, #EDE5DA 100%)" }}
+      >
         {icon}
       </div>
       <div>
@@ -62,7 +95,7 @@ function InfoRow({
   );
 
   return href ? (
-    <a href={href} className="block hover:opacity-80 transition-opacity">
+    <a href={href} className="block">
       {content}
     </a>
   ) : (
@@ -90,7 +123,7 @@ function PhoneIcon() {
 function MailIcon() {
   return (
     <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2 2v10a2 2 0 002 2z" />
     </svg>
   );
 }

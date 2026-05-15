@@ -1,8 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #1c1917;
+  /* Catpro brand palette */
+  --background: #FAF8F5;
+  --foreground: #2C2825;
+
+  /* Brand colours */
+  --cream: #FAF8F5;
+  --ivory: #F5F0E8;
+  --blush: #E8C5B8;
+  --blush-light: #F5E8E3;
+  --blush-dark: #C4967E;
+  --charcoal: #2C2825;
+  --stone: #6B6460;
+  --border: #EDE8E2;
 }
 
 @theme inline {
@@ -19,13 +30,26 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Smooth scrolling */
 html {
   scroll-behavior: smooth;
 }
 
-/* Remove default input appearance */
 input[type="time"]::-webkit-calendar-picker-indicator {
   opacity: 0.5;
   cursor: pointer;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #D6CFC8;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #B8AFA8;
 }

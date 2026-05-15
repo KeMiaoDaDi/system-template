@@ -5,10 +5,10 @@ type Variant = "primary" | "secondary" | "ghost" | "danger";
 type Size = "sm" | "md" | "lg";
 
 const variantStyles: Record<Variant, string> = {
-  primary:   "bg-stone-900 text-white hover:bg-stone-700 active:bg-stone-800",
-  secondary: "bg-white text-stone-900 border border-stone-200 hover:bg-stone-50",
-  ghost:     "bg-transparent text-stone-600 hover:bg-stone-100",
-  danger:    "bg-red-50 text-red-600 hover:bg-red-100 border border-red-200",
+  primary:   "bg-stone-900 text-white hover:bg-stone-700 hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 active:shadow-md",
+  secondary: "bg-white text-stone-900 border border-stone-200 hover:bg-stone-50 hover:border-stone-300 hover:-translate-y-0.5 hover:shadow-sm active:translate-y-0",
+  ghost:     "bg-transparent text-stone-600 hover:bg-stone-100 hover:text-stone-900",
+  danger:    "bg-red-50 text-red-600 hover:bg-red-100 border border-red-200 hover:border-red-300",
 };
 
 const sizeStyles: Record<Size, string> = {
@@ -39,8 +39,8 @@ export function Button({
       {...props}
       disabled={disabled || isLoading}
       className={cn(
-        "inline-flex items-center justify-center gap-2 rounded-xl font-medium transition-all duration-150",
-        "disabled:opacity-50 disabled:cursor-not-allowed",
+        "inline-flex items-center justify-center gap-2 rounded-xl font-medium transition-all duration-200",
+        "disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none",
         variantStyles[variant],
         sizeStyles[size],
         fullWidth && "w-full",
