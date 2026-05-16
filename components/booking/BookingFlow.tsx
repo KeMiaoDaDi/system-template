@@ -7,6 +7,7 @@ import { addBooking } from "@/lib/data/bookings";
 import { BUSINESS_CONFIG } from "@/lib/config/business.config";
 import { StepIndicator } from "@/components/ui/StepIndicator";
 import { BookingSummary } from "@/components/booking/BookingSummary";
+import { MobileBookingSummary } from "@/components/booking/BookingSummary";
 import { StepSelectService } from "@/components/booking/steps/StepSelectService";
 import { StepSelectStaff } from "@/components/booking/steps/StepSelectStaff";
 import { StepSelectDate } from "@/components/booking/steps/StepSelectDate";
@@ -16,13 +17,13 @@ import { StepReview } from "@/components/booking/steps/StepReview";
 import { StepConfirmation } from "@/components/booking/steps/StepConfirmation";
 
 const STEPS: { id: BookingStep; label: string }[] = [
-  { id: "select-service",    label: "Service"  },
-  { id: "select-staff",      label: "Staff"    },
-  { id: "select-date",       label: "Date"     },
-  { id: "select-time",       label: "Time"     },
-  { id: "customer-details",  label: "Details"  },
-  { id: "review",            label: "Review"   },
-  { id: "confirmation",      label: "Done"     },
+  { id: "select-service",   label: "Service" },
+  { id: "select-staff",     label: "Staff"   },
+  { id: "select-date",      label: "Date"    },
+  { id: "select-time",      label: "Time"    },
+  { id: "customer-details", label: "Details" },
+  { id: "review",           label: "Review"  },
+  { id: "confirmation",     label: "Done"    },
 ];
 
 const INITIAL_DRAFT: BookingDraft = {
@@ -53,7 +54,7 @@ export function BookingFlow() {
 
   async function handleConfirm() {
     setIsSubmitting(true);
-    await new Promise((r) => setTimeout(r, 900)); // simulate async
+    await new Promise((r) => setTimeout(r, 900));
     const booking = addBooking({
       serviceIds: draft.selectedServiceIds,
       staffId: draft.staffId || "any",
@@ -72,11 +73,12 @@ export function BookingFlow() {
 
   const isConfirmation = step === "confirmation";
   const showSummary = !isConfirmation && step !== "select-service";
+  const displaySteps = STEPS.filter((s) => s.id !== "confirmation");
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#FAF8F5]">
       {/* Top bar */}
-      <header className="border-b border-stone-100 px-4 py-4">
+      <header className="bg-white border-b border-stone-100 px-4 py-4 sticky top-0 z-20">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
           <Link href="/" className="text-sm font-semibold text-stone-900">
             {BUSINESS_CONFIG.name}
@@ -88,25 +90,25 @@ export function BookingFlow() {
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
-            Cancel
+            <span className="hidden sm:inline">Cancel</span>
           </Link>
         </div>
       </header>
 
       {/* Step indicator */}
       {!isConfirmation && (
-        <div className="border-b border-stone-50 py-5 px-4">
+        <div className="bg-white border-b border-stone-100 py-4 px-4">
           <div className="max-w-4xl mx-auto">
-            <StepIndicator steps={STEPS.filter((s) => s.id !== "confirmation")} currentStep={step} />
+            <StepIndicator steps={displaySteps} currentStep={step} />
           </div>
         </div>
       )}
 
       {/* Main content */}
-      <main className="max-w-4xl mx-auto px-4 py-8">
-        <div className={`grid gap-8 ${showSummary ? "lg:grid-cols-[1fr_320px]" : "max-w-xl mx-auto w-full"}`}>
+      <main className="max-w-4xl mx-auto px-4 py-6 pb-32 sm:pb-10">
+        <div className={`grid gap-6 ${showSummary ? "lg:grid-cols-[1fr_300px]" : "max-w-lg mx-auto w-full"}`}>
           {/* Step content */}
-          <div>
+          <div className="min-w-0">
             {step === "select-service" && (
               <StepSelectService
                 selectedIds={draft.selectedServiceIds}
@@ -165,7 +167,7 @@ export function BookingFlow() {
             )}
           </div>
 
-          {/* Live booking summary (desktop) */}
+          {/* Desktop sidebar summary */}
           {showSummary && (
             <aside className="hidden lg:block">
               <BookingSummary draft={draft} />
@@ -173,6 +175,13 @@ export function BookingFlow() {
           )}
         </div>
       </main>
+
+      {/* Mobile sticky summary bar (shown after service selected) */}
+      {showSummary && (
+        <div className="lg:hidden fixed bottom-0 left-0 right-0 z-30">
+          <MobileBookingSummary draft={draft} />
+        </div>
+      )}
     </div>
   );
 }

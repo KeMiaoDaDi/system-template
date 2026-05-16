@@ -42,7 +42,7 @@ export function StepSelectService({ selectedIds, onChange, onNext }: Props) {
       )}
 
       {/* Category tabs */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-2 mb-5 scrollbar-none">
+      <div className="flex items-center gap-2 overflow-x-auto pb-2 mb-5 -mx-4 px-4 scrollbar-none" style={{ WebkitOverflowScrolling: "touch" }}>
         {SERVICE_CATEGORIES.map((cat) => (
           <button
             key={cat.id}
