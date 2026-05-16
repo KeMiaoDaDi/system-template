@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils/cn";
 
@@ -16,8 +17,30 @@ interface Props extends CustomerDetails {
   onBack: () => void;
 }
 
+function validate(name: string, email: string, phone: string) {
+  return {
+    name:  name.trim().length < 2      ? "Please enter your full name"          : "",
+    email: !/\S+@\S+\.\S+/.test(email) ? "Please enter a valid email address"   : "",
+    phone: phone.trim().length < 7     ? "Please enter a valid phone number"    : "",
+  };
+}
+
 export function StepCustomerDetails({ customerName, customerEmail, customerPhone, notes, onChange, onNext, onBack }: Props) {
-  const isValid = customerName.trim().length >= 2 && /\S+@\S+\.\S+/.test(customerEmail) && customerPhone.trim().length >= 7;
+  // Only show errors after the field has been touched (blurred)
+  const [touched, setTouched] = useState({ name: false, email: false, phone: false });
+
+  const errors = validate(customerName, customerEmail, customerPhone);
+  const isValid = !errors.name && !errors.email && !errors.phone;
+
+  function touch(field: keyof typeof touched) {
+    setTouched((t) => ({ ...t, [field]: true }));
+  }
+
+  function handleNext() {
+    // Mark all touched so errors show if user tries to skip ahead
+    setTouched({ name: true, email: true, phone: true });
+    if (isValid) onNext();
+  }
 
   return (
     <div>
@@ -25,41 +48,48 @@ export function StepCustomerDetails({ customerName, customerEmail, customerPhone
       <p className="text-stone-500 text-sm mb-6">We&apos;ll use this to confirm your booking</p>
 
       <div className="space-y-4">
-        <Field label="Full Name" required>
+        {/* Full Name */}
+        <Field label="Full Name" required error={touched.name ? errors.name : ""}>
           <input
             type="text"
             value={customerName}
             onChange={(e) => onChange("customerName", e.target.value)}
+            onBlur={() => touch("name")}
             placeholder="Jane Doe"
-            className={inputCls}
+            className={cn(inputCls, touched.name && errors.name && errorBorder)}
           />
         </Field>
 
-        <Field label="Email Address" required>
+        {/* Email */}
+        <Field label="Email Address" required error={touched.email ? errors.email : ""}>
           <input
             type="email"
             value={customerEmail}
             onChange={(e) => onChange("customerEmail", e.target.value)}
+            onBlur={() => touch("email")}
             placeholder="jane@example.com"
-            className={inputCls}
+            className={cn(inputCls, touched.email && errors.email && errorBorder)}
           />
         </Field>
 
-        <Field label="Phone Number" required>
+        {/* Phone */}
+        <Field label="Phone Number" required error={touched.phone ? errors.phone : ""}>
           <input
             type="tel"
             value={customerPhone}
             onChange={(e) => onChange("customerPhone", e.target.value)}
+            onBlur={() => touch("phone")}
             placeholder="+44 7700 900000"
-            className={inputCls}
+            className={cn(inputCls, touched.phone && errors.phone && errorBorder)}
           />
         </Field>
 
+        {/* Notes */}
         <Field label="Notes (optional)">
           <textarea
             value={notes}
             onChange={(e) => onChange("notes", e.target.value)}
-            placeholder="Allergies, preferences, or anything we should know&hellip;"
+            placeholder="Allergies, preferences, or anything we should know…"
             rows={3}
             className={cn(inputCls, "resize-none")}
           />
@@ -68,15 +98,28 @@ export function StepCustomerDetails({ customerName, customerEmail, customerPhone
 
       <div className="mt-8 flex gap-3">
         <Button variant="secondary" onClick={onBack} size="lg" className="flex-1">Back</Button>
-        <Button onClick={onNext} disabled={!isValid} size="lg" className="flex-1">Review Booking</Button>
+        <Button onClick={handleNext} size="lg" className="flex-1">Review Booking</Button>
       </div>
     </div>
   );
 }
 
-const inputCls = "w-full px-4 py-2.5 rounded-xl border border-stone-200 text-stone-900 text-sm placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-900/20 focus:border-stone-400 transition-colors";
+const inputCls =
+  "w-full px-4 py-2.5 rounded-xl border border-stone-200 text-stone-900 text-sm placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-900/20 focus:border-stone-400 transition-colors";
 
-function Field({ label, required, children }: { label: string; required?: boolean; children: React.ReactNode }) {
+const errorBorder = "border-red-300 focus:border-red-400 focus:ring-red-200";
+
+function Field({
+  label,
+  required,
+  error,
+  children,
+}: {
+  label: string;
+  required?: boolean;
+  error?: string;
+  children: React.ReactNode;
+}) {
   return (
     <div>
       <label className="block text-sm font-medium text-stone-700 mb-1.5">
@@ -84,6 +127,14 @@ function Field({ label, required, children }: { label: string; required?: boolea
         {required && <span className="text-red-400 ml-0.5">*</span>}
       </label>
       {children}
+      {error && (
+        <p className="mt-1.5 flex items-center gap-1 text-xs text-red-500">
+          <svg className="h-3.5 w-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          {error}
+        </p>
+      )}
     </div>
   );
 }
