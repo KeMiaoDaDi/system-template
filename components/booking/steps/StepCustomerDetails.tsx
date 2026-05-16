@@ -98,7 +98,17 @@ export function StepCustomerDetails({ customerName, customerEmail, customerPhone
 
       <div className="mt-8 flex gap-3">
         <Button variant="secondary" onClick={onBack} size="lg" className="flex-1">Back</Button>
-        <Button onClick={handleNext} size="lg" className="flex-1">Review Booking</Button>
+        <button
+          onClick={handleNext}
+          className={cn(
+            "flex-1 inline-flex items-center justify-center gap-2 rounded-xl font-medium transition-all duration-200 px-6 py-3 text-base",
+            isValid
+              ? "bg-stone-900 text-white hover:bg-stone-700 hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0"
+              : "bg-stone-200 text-stone-400 cursor-not-allowed"
+          )}
+        >
+          Review Booking
+        </button>
       </div>
     </div>
   );
