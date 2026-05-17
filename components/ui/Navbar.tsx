@@ -13,7 +13,7 @@ const MAIN_LINKS = [
 
 const MORE_LINKS = [
   { label: "Meet the Team", href: "/#team"  },
-  { label: "About Us",      href: "/#about" },
+  { label: "Find Us",       href: "/#about" },
 ];
 
 export function Navbar() {
@@ -90,7 +90,7 @@ export function Navbar() {
                     className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-stone-600 hover:bg-stone-50 hover:text-stone-900 transition-colors"
                   >
                     {l.label === "Meet the Team" && <TeamIcon />}
-                    {l.label === "About Us"       && <InfoIcon />}
+                    {l.label === "Find Us"       && <MapPinIcon />}
                     {l.label}
                   </Link>
                 ))}
@@ -156,7 +156,7 @@ export function Navbar() {
                 className="flex items-center gap-2.5 px-3 py-2.5 text-sm text-stone-500 hover:bg-stone-50 rounded-xl transition-colors"
               >
                 {l.label === "Meet the Team" && <TeamIcon />}
-                {l.label === "About Us"       && <InfoIcon />}
+                {l.label === "Find Us"       && <MapPinIcon />}
                 {l.label}
               </Link>
             ))}
@@ -184,10 +184,11 @@ function TeamIcon() {
   );
 }
 
-function InfoIcon() {
+function MapPinIcon() {
   return (
     <svg className="h-4 w-4 text-stone-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
     </svg>
   );
 }
