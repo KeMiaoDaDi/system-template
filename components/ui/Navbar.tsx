@@ -45,7 +45,11 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4 md:px-8 h-14 flex items-center justify-between gap-4">
 
         {/* Logo */}
-        <Link href="/" className="font-bold text-stone-900 text-base tracking-tight shrink-0">
+        <Link
+          href="/"
+          className="shrink-0 text-stone-900 tracking-widest uppercase"
+          style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.25rem", fontWeight: 300, letterSpacing: "0.18em" }}
+        >
           {BUSINESS_CONFIG.name}
         </Link>
 

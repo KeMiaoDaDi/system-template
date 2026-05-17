@@ -4,7 +4,7 @@ import Link from "next/link";
 import { BUSINESS_CONFIG } from "@/lib/config/business.config";
 
 export function HeroSection() {
-  const { name, tagline, address } = BUSINESS_CONFIG;
+  const { name, tagline } = BUSINESS_CONFIG;
 
   return (
     <section className="relative h-[82vh] min-h-[520px] w-full overflow-hidden">
@@ -20,7 +20,10 @@ export function HeroSection() {
 
       {/* Top navigation bar */}
       <div className="absolute top-0 left-0 right-0 px-6 py-5 md:px-12 lg:px-20 flex items-center justify-between z-10">
-        <span className="text-white font-bold text-lg tracking-tight">{name}</span>
+        <span
+          className="text-white uppercase tracking-widest"
+          style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.1rem", fontWeight: 300, letterSpacing: "0.2em" }}
+        >{name}</span>
         <Link
           href="/booking"
           className="text-sm font-medium text-white/90 bg-white/10 backdrop-blur-sm border border-white/20 px-4 py-2 rounded-xl hover:bg-white/20 transition-colors"
@@ -31,18 +34,14 @@ export function HeroSection() {
 
       {/* Content */}
       <div className="relative h-full flex flex-col justify-end px-6 pb-14 md:px-12 lg:px-20 max-w-5xl">
-        <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tight leading-none mb-3">
+        <h1
+          className="text-6xl md:text-8xl text-white leading-none mb-4 uppercase tracking-widest"
+          style={{ fontFamily: "var(--font-cormorant)", fontWeight: 300, letterSpacing: "0.15em" }}
+        >
           {name}
         </h1>
-        <p className="text-white/70 text-lg md:text-xl mb-3 max-w-md font-light">
+        <p className="text-white/70 text-lg md:text-xl mb-10 max-w-md font-light tracking-wide">
           {tagline}
-        </p>
-        <p className="text-white/50 text-sm mb-8 flex items-center gap-1.5">
-          <svg className="h-3.5 w-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-            <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-          </svg>
-          {address}
         </p>
 
         <div className="flex flex-col sm:flex-row gap-3">

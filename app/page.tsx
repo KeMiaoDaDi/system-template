@@ -6,6 +6,7 @@ import { ServiceShowcase } from "@/components/showcase/ServiceShowcase";
 import { OpeningHoursBlock } from "@/components/showcase/OpeningHoursDisplay";
 import { StaffSection } from "@/components/showcase/StaffSection";
 import { ReviewsSection } from "@/components/showcase/ReviewsSection";
+import { BrandInfoSection } from "@/components/showcase/BrandInfoSection";
 import { WelcomePopup } from "@/components/ui/WelcomePopup";
 import { BUSINESS_CONFIG } from "@/lib/config/business.config";
 
@@ -14,6 +15,9 @@ export default function HomePage() {
     <>
       <main>
         <HeroSection />
+
+        {/* Brand info + Find Us */}
+        <BrandInfoSection />
 
         {/* Gallery */}
         <div id="gallery" className="border-b border-stone-100">
@@ -62,8 +66,12 @@ export default function HomePage() {
         <footer className="border-t border-stone-100 py-10 px-4 md:px-8 bg-stone-900">
           <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
             <div>
-              <p className="font-bold text-white text-sm">{BUSINESS_CONFIG.name}</p>
-              <p className="text-stone-400 text-xs mt-0.5">{BUSINESS_CONFIG.address}</p>
+              <p
+                className="text-white uppercase tracking-widest"
+                style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.1rem", fontWeight: 300, letterSpacing: "0.18em" }}
+              >
+                {BUSINESS_CONFIG.name}
+              </p>
             </div>
             <div className="flex items-center gap-4">
               <Link href="/booking" className="text-sm font-medium text-white hover:text-stone-200 transition-colors">
