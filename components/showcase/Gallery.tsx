@@ -1,153 +1,103 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { BUSINESS_CONFIG } from "@/lib/config/business.config";
 
+const PER_PAGE = 4;
+
 export function Gallery() {
   const images = BUSINESS_CONFIG.galleryImages;
-  const [expanded, setExpanded] = useState(false);
-  const extraCount = images.length - 4;
+  const totalPages = Math.ceil(images.length / PER_PAGE);
+
+  const [page, setPage] = useState(0);
+  const [visible, setVisible] = useState(true); // controls opacity for fade
+
+  function goTo(next: number) {
+    if (next === page) return;
+    // Fade out → swap → fade in
+    setVisible(false);
+    setTimeout(() => {
+      setPage(next);
+      setVisible(true);
+    }, 220);
+  }
+
+  const pageImages = images.slice(page * PER_PAGE, page * PER_PAGE + PER_PAGE);
 
   return (
     <section className="py-16 px-4 md:px-8 max-w-7xl mx-auto">
-      <div className="mb-8">
-        <h2 className="text-2xl font-bold text-stone-900 mb-1">Gallery</h2>
-        <p className="text-stone-500 text-sm">Our work, captured</p>
+      <div className="flex items-end justify-between mb-8">
+        <div>
+          <h2 className="text-2xl font-bold text-stone-900 mb-1">Gallery</h2>
+          <p className="text-stone-500 text-sm">Our work, captured</p>
+        </div>
+        {/* Page indicators */}
+        {totalPages > 1 && (
+          <div className="flex items-center gap-1.5">
+            {Array.from({ length: totalPages }).map((_, i) => (
+              <button
+                key={i}
+                onClick={() => goTo(i)}
+                className={`rounded-full transition-all duration-200 ${
+                  i === page
+                    ? "w-5 h-2 bg-stone-900"
+                    : "w-2 h-2 bg-stone-300 hover:bg-stone-500"
+                }`}
+              />
+            ))}
+          </div>
+        )}
       </div>
 
-      {!expanded && (
-        <>
-          {/* ── Mobile: 2×2 square grid ─────────────────────────────── */}
-          <div className="grid grid-cols-2 gap-2 md:hidden">
-            {images.slice(0, 3).map((src, i) => (
-              <div
-                key={i}
-                className="relative overflow-hidden rounded-2xl bg-stone-100"
-                style={{ aspectRatio: "1 / 1" }}
-              >
-                <Image
-                  src={src}
-                  alt={`Catpro nail art ${i + 1}`}
-                  fill
-                  unoptimized
-                  className="object-cover hover:scale-105 transition-transform duration-500"
-                  sizes="50vw"
-                />
-              </div>
-            ))}
-            {/* 4th tile: see more */}
-            {extraCount > 0 ? (
-              <button
-                onClick={() => setExpanded(true)}
-                className="relative overflow-hidden rounded-2xl bg-stone-100"
-                style={{ aspectRatio: "1 / 1" }}
-              >
-                <Image
-                  src={images[3]}
-                  alt=""
-                  fill
-                  unoptimized
-                  className="object-cover scale-105 blur-[2px] brightness-50"
-                  sizes="50vw"
-                />
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-1">
-                  <span className="text-white font-bold text-2xl leading-none">+{extraCount}</span>
-                  <span className="text-white/80 text-xs font-medium">View more</span>
-                </div>
-              </button>
-            ) : (
-              <div
-                className="relative overflow-hidden rounded-2xl bg-stone-100"
-                style={{ aspectRatio: "1 / 1" }}
-              >
-                <Image
-                  src={images[3]}
-                  alt="Catpro nail art 4"
-                  fill
-                  unoptimized
-                  className="object-cover"
-                  sizes="50vw"
-                />
-              </div>
-            )}
+      {/* Image grid with fade transition */}
+      <div
+        className="grid grid-cols-2 md:grid-cols-4 gap-3 transition-opacity duration-200"
+        style={{ opacity: visible ? 1 : 0 }}
+      >
+        {pageImages.map((src, i) => (
+          <div
+            key={`${page}-${i}`}
+            className="relative overflow-hidden rounded-2xl bg-stone-100"
+            style={{ aspectRatio: "1 / 1" }}
+          >
+            <Image
+              src={src}
+              alt={`Catpro nail art ${page * PER_PAGE + i + 1}`}
+              fill
+              unoptimized
+              className="object-cover hover:scale-105 transition-transform duration-500"
+              sizes="(max-width: 768px) 50vw, 25vw"
+            />
           </div>
+        ))}
+      </div>
 
-          {/* ── Desktop: 1 tall feature + right column ──────────────── */}
-          <div className="hidden md:flex gap-3 h-[540px]">
-            {/* Featured tall image */}
-            <div className="relative flex-[2] overflow-hidden rounded-2xl bg-stone-100 min-w-0">
-              <Image
-                src={images[0]}
-                alt="Catpro nail art"
-                fill
-                unoptimized
-                className="object-cover hover:scale-105 transition-transform duration-500"
-                sizes="40vw"
-              />
-            </div>
-            {/* Right column */}
-            <div className="flex flex-col gap-3 flex-[1] min-w-0">
-              <div className="relative flex-1 overflow-hidden rounded-2xl bg-stone-100">
-                <Image src={images[1]} alt="Catpro nail art 2" fill unoptimized className="object-cover hover:scale-105 transition-transform duration-500" sizes="20vw" />
-              </div>
-              <div className="relative flex-1 overflow-hidden rounded-2xl bg-stone-100">
-                <Image src={images[2]} alt="Catpro nail art 3" fill unoptimized className="object-cover hover:scale-105 transition-transform duration-500" sizes="20vw" />
-              </div>
-              {extraCount > 0 ? (
-                <button
-                  onClick={() => setExpanded(true)}
-                  className="relative flex-1 overflow-hidden rounded-2xl bg-stone-100"
-                >
-                  <Image src={images[3]} alt="" fill unoptimized className="object-cover scale-105 blur-[2px] brightness-50" sizes="20vw" />
-                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-1">
-                    <span className="text-white font-bold text-2xl leading-none">+{extraCount}</span>
-                    <span className="text-white/80 text-xs font-medium tracking-wide">View more</span>
-                  </div>
-                </button>
-              ) : (
-                <div className="relative flex-1 overflow-hidden rounded-2xl bg-stone-100">
-                  <Image src={images[3]} alt="Catpro nail art 4" fill unoptimized className="object-cover hover:scale-105 transition-transform duration-500" sizes="20vw" />
-                </div>
-              )}
-            </div>
-          </div>
-        </>
-      )}
-
-      {/* ── Expanded: uniform grid ───────────────────────────────────── */}
-      {expanded && (
-        <>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {images.map((src, i) => (
-              <div
-                key={i}
-                className="relative overflow-hidden rounded-2xl bg-stone-100"
-                style={{ aspectRatio: "1 / 1" }}
-              >
-                <Image
-                  src={src}
-                  alt={`Catpro nail art ${i + 1}`}
-                  fill
-                  unoptimized
-                  className="object-cover hover:scale-105 transition-transform duration-500"
-                  sizes="(max-width: 768px) 50vw, 25vw"
-                />
-              </div>
-            ))}
-          </div>
-          <div className="mt-5 text-center">
-            <button
-              onClick={() => setExpanded(false)}
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-stone-500 hover:text-stone-900 transition-colors"
-            >
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
-              </svg>
-              Show less
-            </button>
-          </div>
-        </>
+      {/* Prev / Next arrows */}
+      {totalPages > 1 && (
+        <div className="flex items-center justify-center gap-3 mt-6">
+          <button
+            onClick={() => goTo(page - 1)}
+            disabled={page === 0}
+            className="h-10 w-10 rounded-full border border-stone-200 bg-white flex items-center justify-center hover:bg-stone-50 disabled:opacity-30 disabled:cursor-not-allowed transition-all hover:-translate-y-0.5 hover:shadow-sm active:translate-y-0"
+          >
+            <svg className="h-4 w-4 text-stone-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          <span className="text-sm text-stone-400 tabular-nums">
+            {page + 1} / {totalPages}
+          </span>
+          <button
+            onClick={() => goTo(page + 1)}
+            disabled={page === totalPages - 1}
+            className="h-10 w-10 rounded-full border border-stone-200 bg-white flex items-center justify-center hover:bg-stone-50 disabled:opacity-30 disabled:cursor-not-allowed transition-all hover:-translate-y-0.5 hover:shadow-sm active:translate-y-0"
+          >
+            <svg className="h-4 w-4 text-stone-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
       )}
     </section>
   );

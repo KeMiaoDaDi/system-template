@@ -4,7 +4,6 @@ import { useState } from "react";
 import Link from "next/link";
 import { BookingDraft, BookingStep } from "@/lib/types";
 import { addBooking } from "@/lib/data/bookings";
-import { BUSINESS_CONFIG } from "@/lib/config/business.config";
 import { StepIndicator } from "@/components/ui/StepIndicator";
 import { BookingSummary } from "@/components/booking/BookingSummary";
 import { MobileBookingSummary } from "@/components/booking/BookingSummary";
@@ -77,29 +76,22 @@ export function BookingFlow() {
 
   return (
     <div className="min-h-screen bg-[#FAF8F5]">
-      {/* Top bar */}
-      <header className="bg-white border-b border-stone-100 px-4 py-4 sticky top-0 z-20">
-        <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <Link href="/" className="text-sm font-semibold text-stone-900">
-            {BUSINESS_CONFIG.name}
-          </Link>
-          <Link
-            href="/"
-            className="text-sm text-stone-400 hover:text-stone-700 flex items-center gap-1.5 transition-colors"
-          >
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-            <span className="hidden sm:inline">Cancel</span>
-          </Link>
-        </div>
-      </header>
-
-      {/* Step indicator */}
+      {/* Step indicator + cancel */}
       {!isConfirmation && (
-        <div className="bg-white border-b border-stone-100 py-4 px-4">
-          <div className="max-w-4xl mx-auto">
-            <StepIndicator steps={displaySteps} currentStep={step} />
+        <div className="bg-white border-b border-stone-100 py-3 px-4">
+          <div className="max-w-4xl mx-auto flex items-center gap-4">
+            <div className="flex-1">
+              <StepIndicator steps={displaySteps} currentStep={step} />
+            </div>
+            <Link
+              href="/"
+              className="shrink-0 text-xs text-stone-400 hover:text-stone-700 flex items-center gap-1 transition-colors"
+            >
+              <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+              Cancel
+            </Link>
           </div>
         </div>
       )}

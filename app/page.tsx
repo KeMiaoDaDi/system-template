@@ -6,6 +6,7 @@ import { ServiceShowcase } from "@/components/showcase/ServiceShowcase";
 import { OpeningHoursBlock } from "@/components/showcase/OpeningHoursDisplay";
 import { StaffSection } from "@/components/showcase/StaffSection";
 import { ReviewsSection } from "@/components/showcase/ReviewsSection";
+import { WelcomePopup } from "@/components/ui/WelcomePopup";
 import { BUSINESS_CONFIG } from "@/lib/config/business.config";
 
 export default function HomePage() {
@@ -13,25 +14,6 @@ export default function HomePage() {
     <>
       <main>
         <HeroSection />
-
-        {/* Sticky nav — desktop */}
-        <div className="sticky top-0 z-30 bg-white/95 backdrop-blur-sm border-b border-stone-100 hidden md:block">
-          <div className="max-w-7xl mx-auto px-8 flex items-center justify-between h-14">
-            <nav className="flex items-center gap-6 text-sm font-medium text-stone-500">
-              <a href="#gallery" className="hover:text-stone-900 transition-colors">Photos</a>
-              <a href="#services" className="hover:text-stone-900 transition-colors">Services</a>
-              <a href="#team" className="hover:text-stone-900 transition-colors">Team</a>
-              <a href="#reviews" className="hover:text-stone-900 transition-colors">Reviews</a>
-              <a href="#about" className="hover:text-stone-900 transition-colors">About</a>
-            </nav>
-            <Link
-              href="/booking"
-              className="inline-flex items-center gap-2 bg-stone-900 text-white text-sm font-semibold px-5 py-2 rounded-xl hover:bg-stone-700 hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 transition-all duration-200"
-            >
-              Book Now
-            </Link>
-          </div>
-        </div>
 
         {/* Gallery */}
         <div id="gallery" className="border-b border-stone-100">
@@ -53,27 +35,21 @@ export default function HomePage() {
           <ReviewsSection />
         </div>
 
-        {/* About — full width centred */}
+        {/* About */}
         <div id="about" className="border-t border-stone-100">
           <AboutSection />
         </div>
 
-        {/* Opening Hours + Find Us — side by side */}
+        {/* Opening Hours + Find Us */}
         <div
+          id="find-us"
           className="border-t border-stone-100 relative overflow-hidden"
           style={{ background: "linear-gradient(180deg, #F5EDE4 0%, #FAF8F5 100%)" }}
         >
-          {/* Decorative circle blurs */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -top-32 -right-32 h-96 w-96 rounded-full opacity-30"
-            style={{ background: "radial-gradient(circle, #E8C5B8 0%, transparent 70%)" }}
-          />
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -bottom-24 -left-24 h-72 w-72 rounded-full opacity-20"
-            style={{ background: "radial-gradient(circle, #C4A882 0%, transparent 70%)" }}
-          />
+          <div aria-hidden className="pointer-events-none absolute -top-32 -right-32 h-96 w-96 rounded-full opacity-30"
+            style={{ background: "radial-gradient(circle, #E8C5B8 0%, transparent 70%)" }} />
+          <div aria-hidden className="pointer-events-none absolute -bottom-24 -left-24 h-72 w-72 rounded-full opacity-20"
+            style={{ background: "radial-gradient(circle, #C4A882 0%, transparent 70%)" }} />
           <section className="relative py-20 px-4 md:px-8 max-w-7xl mx-auto">
             <div className="grid md:grid-cols-2 gap-14">
               <OpeningHoursBlock />
@@ -116,6 +92,9 @@ export default function HomePage() {
           </svg>
         </Link>
       </div>
+
+      {/* Welcome popup + floating badge */}
+      <WelcomePopup />
     </>
   );
 }
