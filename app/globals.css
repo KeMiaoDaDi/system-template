@@ -19,7 +19,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-italiana);
+  --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-brand: var(--font-allura);
 }
@@ -27,7 +27,6 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-italiana), Georgia, serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

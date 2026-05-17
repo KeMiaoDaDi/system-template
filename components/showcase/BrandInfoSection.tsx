@@ -30,8 +30,11 @@ export function BrandInfoSection() {
         <div className="h-px w-16 bg-stone-300" />
       </div>
 
-      {/* Content grid */}
-      <div className="relative max-w-7xl mx-auto grid md:grid-cols-[3fr_2fr] gap-14 md:gap-20">
+      {/* Content grid — Cormorant Garamond scoped to this section */}
+      <div
+        className="relative max-w-7xl mx-auto grid md:grid-cols-[3fr_2fr] gap-14 md:gap-20"
+        style={{ fontFamily: "var(--font-italiana)" }}
+      >
 
         {/* Left — brand story */}
         <div>
