@@ -5,25 +5,45 @@ export function BrandInfoSection() {
   const { name, tagline, description, phone, email } = BUSINESS_CONFIG;
 
   return (
-    <section className="bg-white border-b border-stone-100 py-16 md:py-20 px-6 md:px-12 lg:px-20">
-      <div className="max-w-7xl mx-auto grid md:grid-cols-[3fr_2fr] gap-14 md:gap-20">
+    <section
+      id="about"
+      className="relative overflow-hidden border-b border-stone-100 py-16 md:py-24 px-6 md:px-12 lg:px-20"
+      style={{
+        background: "radial-gradient(ellipse 90% 70% at 50% 50%, #F5EDE4 0%, #FAF8F5 75%)",
+      }}
+    >
+      {/* Large faint watermark */}
+      <span
+        aria-hidden
+        className="pointer-events-none select-none absolute inset-0 flex items-center justify-center leading-none text-stone-900/[0.025]"
+        style={{ fontFamily: "var(--font-allura)", fontSize: "22vw" }}
+      >
+        {name}
+      </span>
+
+      {/* Top ornamental rule */}
+      <div className="relative flex items-center justify-center gap-4 mb-12">
+        <div className="h-px w-16 bg-stone-300" />
+        <svg className="h-3.5 w-3.5 text-stone-300 shrink-0" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2l2.09 6.26L20 10l-5.91 1.74L12 18l-2.09-6.26L4 10l5.91-1.74z" />
+        </svg>
+        <div className="h-px w-16 bg-stone-300" />
+      </div>
+
+      {/* Content grid */}
+      <div className="relative max-w-7xl mx-auto grid md:grid-cols-[3fr_2fr] gap-14 md:gap-20">
 
         {/* Left — brand story */}
         <div>
           <h2
-            className="text-5xl md:text-6xl lg:text-7xl text-stone-900 mb-5 uppercase"
-            style={{
-              fontFamily: "var(--font-cormorant)",
-              fontWeight: 300,
-              letterSpacing: "0.12em",
-              lineHeight: 1.1,
-            }}
+            className="text-6xl md:text-7xl lg:text-8xl text-stone-900 mb-5 leading-none"
+            style={{ fontFamily: "var(--font-allura)", fontWeight: 400 }}
           >
             {name}
           </h2>
           <p
-            className="text-base md:text-lg text-stone-500 mb-6 leading-relaxed"
-            style={{ fontFamily: "var(--font-cormorant)", fontWeight: 400, fontSize: "1.15rem" }}
+            className="text-stone-500 mb-6 leading-relaxed"
+            style={{ fontFamily: "var(--font-italiana)", fontSize: "1.1rem" }}
           >
             {tagline}
           </p>
@@ -39,7 +59,7 @@ export function BrandInfoSection() {
         </div>
 
         {/* Right — contact info */}
-        <div className="flex flex-col justify-start gap-10 pt-2 md:pt-3">
+        <div className="flex flex-col justify-start gap-10 pt-2">
           <InfoBlock
             label="Location"
             icon={<MapPinIcon />}
@@ -58,6 +78,13 @@ export function BrandInfoSection() {
             href={`mailto:${email}`}
           />
         </div>
+      </div>
+
+      {/* Bottom ornamental rule */}
+      <div className="relative flex items-center justify-center gap-4 mt-12">
+        <div className="h-px w-16 bg-stone-300" />
+        <div className="h-1.5 w-1.5 rounded-full bg-stone-300" />
+        <div className="h-px w-16 bg-stone-300" />
       </div>
     </section>
   );
@@ -91,7 +118,7 @@ function InfoBlock({
   );
 
   return href ? (
-    <a href={href} className="group hover:opacity-70 transition-opacity">
+    <a href={href} className="hover:opacity-70 transition-opacity">
       {content}
     </a>
   ) : (

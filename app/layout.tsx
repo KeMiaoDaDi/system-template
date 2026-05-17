@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Cormorant_Garamond } from "next/font/google";
+import { Geist, Allura, Italiana } from "next/font/google";
 import "./globals.css";
 import { BUSINESS_CONFIG } from "@/lib/config/business.config";
 import { Navbar } from "@/components/ui/Navbar";
@@ -9,11 +9,16 @@ const geist = Geist({
   subsets: ["latin"],
 });
 
-const cormorant = Cormorant_Garamond({
-  variable: "--font-cormorant",
+const allura = Allura({
+  variable: "--font-allura",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
-  style: ["normal", "italic"],
+  weight: ["400"],
+});
+
+const italiana = Italiana({
+  variable: "--font-italiana",
+  subsets: ["latin"],
+  weight: ["400"],
 });
 
 export const metadata: Metadata = {
@@ -27,8 +32,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-      <html lang="en" className={`${geist.variable} ${cormorant.variable} h-full antialiased`}>
-      <body className={`${cormorant.variable} min-h-full bg-[#FAF8F5] text-stone-900`}>
+      <html lang="en" className={`${geist.variable} ${allura.variable} ${italiana.variable} h-full antialiased`}>
+        <body className={`${allura.variable} ${italiana.variable} min-h-full bg-[#FAF8F5] text-stone-900`}>
         <Navbar />
         {children}
       </body>

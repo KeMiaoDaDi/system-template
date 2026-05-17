@@ -12,9 +12,8 @@ const MAIN_LINKS = [
 ];
 
 const MORE_LINKS = [
-  { label: "Meet the Team", href: "/#team"    },
-  { label: "About Us",      href: "/#about"   },
-  { label: "Opening Hours", href: "/#find-us" },
+  { label: "Meet the Team", href: "/#team"  },
+  { label: "About Us",      href: "/#about" },
 ];
 
 export function Navbar() {
@@ -47,8 +46,8 @@ export function Navbar() {
         {/* Logo */}
         <Link
           href="/"
-          className="shrink-0 text-stone-900 tracking-widest uppercase"
-          style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.25rem", fontWeight: 300, letterSpacing: "0.18em" }}
+          className="shrink-0 text-stone-900"
+          style={{ fontFamily: "var(--font-allura)", fontSize: "1.7rem", lineHeight: 1 }}
         >
           {BUSINESS_CONFIG.name}
         </Link>
@@ -90,9 +89,8 @@ export function Navbar() {
                     onClick={() => setDropdownOpen(false)}
                     className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-stone-600 hover:bg-stone-50 hover:text-stone-900 transition-colors"
                   >
-                    {l.label === "Meet the Team"  && <TeamIcon />}
-                    {l.label === "About Us"        && <InfoIcon />}
-                    {l.label === "Opening Hours"   && <ClockIcon />}
+                    {l.label === "Meet the Team" && <TeamIcon />}
+                    {l.label === "About Us"       && <InfoIcon />}
                     {l.label}
                   </Link>
                 ))}
@@ -150,16 +148,15 @@ export function Navbar() {
               </Link>
             ))}
             <div className="h-px bg-stone-100 my-1.5" />
-            {MORE_LINKS.map((l) => (
+              {MORE_LINKS.map((l) => (
               <Link
                 key={l.label}
                 href={l.href}
                 onClick={() => setMobileOpen(false)}
                 className="flex items-center gap-2.5 px-3 py-2.5 text-sm text-stone-500 hover:bg-stone-50 rounded-xl transition-colors"
               >
-                {l.label === "Meet the Team"  && <TeamIcon />}
-                {l.label === "About Us"        && <InfoIcon />}
-                {l.label === "Opening Hours"   && <ClockIcon />}
+                {l.label === "Meet the Team" && <TeamIcon />}
+                {l.label === "About Us"       && <InfoIcon />}
                 {l.label}
               </Link>
             ))}
@@ -195,10 +192,3 @@ function InfoIcon() {
   );
 }
 
-function ClockIcon() {
-  return (
-    <svg className="h-4 w-4 text-stone-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-    </svg>
-  );
-}

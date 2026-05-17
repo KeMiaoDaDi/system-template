@@ -21,8 +21,8 @@ export function HeroSection() {
       {/* Top navigation bar */}
       <div className="absolute top-0 left-0 right-0 px-6 py-5 md:px-12 lg:px-20 flex items-center justify-between z-10">
         <span
-          className="text-white uppercase tracking-widest"
-          style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.1rem", fontWeight: 300, letterSpacing: "0.2em" }}
+          className="text-white"
+          style={{ fontFamily: "var(--font-allura)", fontSize: "1.7rem", lineHeight: 1 }}
         >{name}</span>
         <Link
           href="/booking"
@@ -35,8 +35,8 @@ export function HeroSection() {
       {/* Content */}
       <div className="relative h-full flex flex-col justify-end px-6 pb-14 md:px-12 lg:px-20 max-w-5xl">
         <h1
-          className="text-6xl md:text-8xl text-white leading-none mb-4 uppercase tracking-widest"
-          style={{ fontFamily: "var(--font-cormorant)", fontWeight: 300, letterSpacing: "0.15em" }}
+          className="text-7xl md:text-9xl text-white leading-none mb-4"
+          style={{ fontFamily: "var(--font-allura)", fontWeight: 400 }}
         >
           {name}
         </h1>

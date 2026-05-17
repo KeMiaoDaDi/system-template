@@ -1,9 +1,7 @@
 import Link from "next/link";
 import { HeroSection } from "@/components/showcase/HeroSection";
 import { Gallery } from "@/components/showcase/Gallery";
-import { AboutSection, ContactSection } from "@/components/showcase/BusinessInfo";
 import { ServiceShowcase } from "@/components/showcase/ServiceShowcase";
-import { OpeningHoursBlock } from "@/components/showcase/OpeningHoursDisplay";
 import { StaffSection } from "@/components/showcase/StaffSection";
 import { ReviewsSection } from "@/components/showcase/ReviewsSection";
 import { BrandInfoSection } from "@/components/showcase/BrandInfoSection";
@@ -39,36 +37,13 @@ export default function HomePage() {
           <ReviewsSection />
         </div>
 
-        {/* About */}
-        <div id="about" className="border-t border-stone-100">
-          <AboutSection />
-        </div>
-
-        {/* Opening Hours + Find Us */}
-        <div
-          id="find-us"
-          className="border-t border-stone-100 relative overflow-hidden"
-          style={{ background: "linear-gradient(180deg, #F5EDE4 0%, #FAF8F5 100%)" }}
-        >
-          <div aria-hidden className="pointer-events-none absolute -top-32 -right-32 h-96 w-96 rounded-full opacity-30"
-            style={{ background: "radial-gradient(circle, #E8C5B8 0%, transparent 70%)" }} />
-          <div aria-hidden className="pointer-events-none absolute -bottom-24 -left-24 h-72 w-72 rounded-full opacity-20"
-            style={{ background: "radial-gradient(circle, #C4A882 0%, transparent 70%)" }} />
-          <section className="relative py-20 px-4 md:px-8 max-w-7xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-14">
-              <OpeningHoursBlock />
-              <ContactSection />
-            </div>
-          </section>
-        </div>
-
         {/* Footer */}
         <footer className="border-t border-stone-100 py-10 px-4 md:px-8 bg-stone-900">
           <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
             <div>
               <p
-                className="text-white uppercase tracking-widest"
-                style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.1rem", fontWeight: 300, letterSpacing: "0.18em" }}
+                className="text-white"
+                style={{ fontFamily: "var(--font-allura)", fontSize: "1.6rem", lineHeight: 1 }}
               >
                 {BUSINESS_CONFIG.name}
               </p>
